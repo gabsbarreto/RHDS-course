@@ -1,7 +1,8 @@
 library(readxl)
 
-datadir <- "."
-resultsdir <- "results"
+args <- commandArgs(T)
+datadir <- args[1]
+resultsdir <- args[2]
 
 dir.create(resultsdir, showWarnings = F, recursive = T)
 stopifnot(dir.exists(datadir))
@@ -21,7 +22,7 @@ if (!file.exists(file.path(datadir, filename))) {
 
 # save a tab-seperated vesion
 dat <- read_xlsx(file.path(datadir, filename), sheet = 1)
-dir.create(resultsdir, showWarnings = F, recursive = T)
+
 write.table(
   dat,
   file = file.path(resultsdir, sub("xlsx$", "txt", filename)),
